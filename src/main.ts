@@ -182,6 +182,13 @@ function saveTracks(
     )
     .clearContent();
 
+  // 合計時間
+  const totalDuration_s = playlistTracks.reduce(
+    (sum, i) => sum + i.duration_s,
+    0
+  );
+  const formattedTotalDuration = getFormattedDuration(totalDuration_s);
+
   // プレイリスト
   const data = playlistTracks.map((t, index) => {
     return [
@@ -193,13 +200,6 @@ function saveTracks(
       getFormattedDuration(t.duration_s),
     ];
   });
-
-  // 合計時間
-  const totalDuration_s = playlistTracks.reduce(
-    (sum, i) => sum + i.duration_s,
-    0
-  );
-  const formattedTotalDuration = getFormattedDuration(totalDuration_s);
 
   // 書き込み
   // 合計時間
@@ -215,6 +215,18 @@ function saveTracks(
     data[0].length
   );
   range.setValues(data);
+}
+
+/**
+ * フォーマッティングされた時間データを取得する関数
+ * @param duration number
+ * @return string
+ */
+function getFormattedDuration(duration: number): string {
+  return `${zeroPadding(Math.floor(duration / 3600), 2)}:${zeroPadding(
+    Math.floor(duration / 60),
+    2
+  )}:${zeroPadding(duration % 60, 2)}`;
 }
 
 function getLastRow(
@@ -236,16 +248,4 @@ function getLastRow(
  */
 function zeroPadding(num: number, len: number): string {
   return (Array(len).join('0') + num).slice(-len);
-}
-
-/**
- * フォーマッティングされた時間データを取得する関数
- * @param duration number
- * @return string
- */
-function getFormattedDuration(duration: number): string {
-  return `${zeroPadding(Math.floor(duration / 3600), 2)}:${zeroPadding(
-    Math.floor(duration / 60),
-    2
-  )}:${zeroPadding(duration % 60, 2)}`;
 }
