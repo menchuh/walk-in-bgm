@@ -141,7 +141,7 @@ function getPlaylist(tracks: Track[], duration: number): Track[] {
   while (isContinue) {
     // ランダムでトラックを追加
     const randomIndex = Math.floor(Math.random() * indexArray.length);
-    playlistTracks.push(tracks[randomIndex]);
+    playlistTracks.push(tracks[indexArray[randomIndex]]);
 
     // 取得対象からそのトラックを除外
     indexArray = indexArray.filter((i) => {
