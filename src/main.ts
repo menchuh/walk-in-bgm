@@ -145,7 +145,7 @@ function getPlaylist(tracks: Track[], duration: number): Track[] {
 
     // 取得対象からそのトラックを除外
     indexArray = indexArray.filter((i) => {
-      return i !== randomIndex;
+      return i !== indexArray[randomIndex];
     });
 
     // 秒数を加算し、秒数が上限を超えるかチェック
